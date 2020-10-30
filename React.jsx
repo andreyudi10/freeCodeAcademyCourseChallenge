@@ -377,3 +377,31 @@ class MyComponent extends React.Component {
     }
   };
   
+//   React: Use the Lifecycle Method componentDidMount
+// Most web developers, at some point, need to call an API endpoint to retrieve data. If you're working with React, it's important to know where to perform this action.
+// There is a mock API call in componentDidMount(). It sets state after 2.5 seconds to simulate calling a server to retrieve data. 
+class MyComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        activeUsers: null
+      };
+    }
+    componentDidMount() {
+      setTimeout(() => {
+        this.setState({
+          activeUsers: 1273
+        });
+      }, 2500);
+    }
+    render() {
+      return (
+        <div>
+          {/* Change code below this line */}
+          <h1>Active Users: {this.state.activeUsers}</h1>
+          {/* Change code below this line */}
+        </div>
+      );
+    }
+  }
+  
