@@ -405,3 +405,90 @@ class MyComponent extends React.Component {
     }
   }
   
+//   React: Add Event Listeners
+  class MyComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        message: ''
+      };
+      this.handleEnter = this.handleEnter.bind(this);
+      this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+    // Change code below this line
+    componentDidMount() {
+      console.log('halo')
+      document.addEventListener("keydown",this.handleKeyPress)
+  
+    }
+    componentWillUnmount() {
+      document.removeEventListener("keydown", this.handleKeyPress);
+    }
+    // Change code above this line
+    handleEnter() {
+      this.setState((state) => ({
+        message: state.message + 'You pressed the enter key! '
+      }));
+    }
+    handleKeyPress(event) {
+
+      if (event.keyCode === 13) {
+        this.handleEnter();
+      }
+    }
+    render() {
+      return (
+        <div>
+          <h1>{this.state.message}</h1>
+        </div>
+      );
+    }
+  };
+  
+//   React: Optimize Re-Renders with shouldComponentUpdate
+//   The shouldComponentUpdate() method is added in a component called OnlyEvens. Currently, this method returns true so OnlyEvens re-renders every time it receives new props. Modify the method so OnlyEvens updates only if the value of its new props is even. Click the Add button and watch the order of events in your browser's console as the lifecycle hooks are triggered.
+
+class OnlyEvens extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+      console.log('Should I update?');
+      // Change code below this line
+      console.log(this.props.value)
+      if(nextProps.value%2===0){
+      return true;
+      }
+      // Change code above this line
+    }
+    componentDidUpdate() {
+      console.log('Component re-rendered.');
+    }
+    render() {
+      return <h1>{this.props.value}</h1>;
+    }
+  }
+  
+  class Controller extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        value: 0
+      };
+      this.addValue = this.addValue.bind(this);
+    }
+    addValue() {
+      this.setState(state => ({
+        value: state.value + 1
+      }));
+    }
+    render() {
+      return (
+        <div>
+          <button onClick={this.addValue}>Add</button>
+          <OnlyEvens value={this.state.value} />
+        </div>
+      );
+    }
+  }
+  
