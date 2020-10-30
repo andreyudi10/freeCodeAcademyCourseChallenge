@@ -298,4 +298,82 @@ class MyApp extends React.Component {
       );
     }
   };
+
+//   React: Pass a Callback as Props
+// You can pass state as props to child components, but you're not limited to passing data. You can also pass handler functions or any method that's defined on a React component to a child component. This is how you allow child components to interact with their parent components. You pass methods to a child just like a regular prop. It's assigned a name and you have access to that method name under this.props in the child component.
+  
+class MyApp extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        inputValue: ''
+      }
+      this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event) {
+      this.setState({
+        inputValue: event.target.value
+      });
+    }
+    render() {
+      return (
+         <div>
+          { /* Change code below this line */ }
+          <GetInput input={this.state.input} handleChange={this.handleChange}/>
+          <RenderInput input={this.state.inputValue}/>
+  
+          { /* Change code above this line */ }
+         </div>
+      );
+    }
+  };
+  
+  class GetInput extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      return (
+        <div>
+          <h3>Get Input:</h3>
+          <input
+            value={this.props.input}
+            onChange={this.props.handleChange}/>
+        </div>
+      );
+    }
+  };
+  
+  class RenderInput extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    render() {
+      return (
+        <div>
+          <h3>Input Render:</h3>
+          <p>{this.props.input}</p>
+        </div>
+      );
+    }
+  };
+  
+//   React: Use the Lifecycle Method componentWillMount
+//   The componentWillMount() method is called before the render() method when a component is being mounted to the DOM. Log something to the console within componentWillMount() - you may want to have your browser console open to see the output.
+
+class MyComponent extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    componentWillMount() {
+      // Change code below this line
+      console.log('halo')
+      // Change code above this line
+    }
+    
+    
+    render() {
+      return <div />
+    }
+  };
   
