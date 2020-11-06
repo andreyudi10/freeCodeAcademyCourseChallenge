@@ -695,7 +695,7 @@ class CheckUserAge extends React.Component {
     );
   }
 }
-
+// ted bounce");
 // React: Render Conditionally from Props
 // Now you have an expression that you can use to make a randomized decision in the code. Next you need to implement this.
 
@@ -775,3 +775,63 @@ class GateKeeper extends React.Component {
     );
   }
 };
+
+// React: Use Array.map() to Dynamically Render Elements
+// Conditional rendering is useful, but you may need your components to render an unknown number of elements. Often in reactive programming, a programmer has no way to know what the state of an application is until runtime, because so much depends on a user's interaction with that program. Programmers need to write their code to correctly handle that unknown state ahead of time. Using Array.map() in React illustrates this concept.
+
+const textAreaStyles = {
+  width: 235,
+  margin: 5
+};
+
+class MyToDoList extends React.Component {
+  constructor(props) {
+    super(props);
+    // Change code below this line
+    this.state={
+      userInput:"",
+      toDoList:[],
+    }
+
+    // Change code above this line
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleSubmit() {
+    const itemsArray = this.state.userInput.split(',');
+    this.setState({
+      toDoList: itemsArray
+    });
+  }
+  handleChange(e) {
+    this.setState({
+      userInput: e.target.value
+    });
+  }
+  render() {
+    const items = (
+      <>
+        {
+          this.state.toDoList.map(
+            (value)=>
+            (<li>{value}</li>))
+        }        
+      </>
+    ) 
+    // Change this line
+    return (
+      <div>
+        <textarea
+          onChange={this.handleChange}
+          value={this.state.userInput}
+          style={textAreaStyles}
+          placeholder='Separate Items With Commas'
+        />
+        <br />
+        <button onClick={this.handleSubmit}>Create List</button>
+        <h1>My "To Do" List:</h1>
+        <ul>{items}</ul>
+      </div>
+    );
+  }
+}
